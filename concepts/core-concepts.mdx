@@ -1,0 +1,79 @@
+---
+title: "Core Concepts"
+description: "FX exposure, hedging, forward pricing, and Grain's hedging model"
+---
+
+## Exposure
+
+FX exposure is the risk that exchange rate movements will affect the value of a future payment or receivable. Any time a business has a commitment in a currency different from its own, it carries exposure. The gap between when the commitment is made and when the payment occurs is the risk window — during that time, the rate can move in either direction.
+
+For example, a UK travel platform that sells holidays priced in GBP but pays hotel suppliers in USD is exposed to GBP/USD movements. If the rate moves unfavorably between booking and payment, the platform's margin shrinks or disappears entirely.
+
+## What Is a Hedge
+
+A hedge eliminates FX exposure by locking a rate today for a future exchange of currencies. Instead of hoping the market stays favorable, the business knows exactly what rate it will get at settlement.
+
+In FX terms, a hedge is a forward contract — an agreement to exchange currencies at a predetermined rate on a future date. "Hedge" is the business term (what you're doing — protecting against risk), "forward" is the financial instrument (how it's done).
+
+Key components:
+
+- **Exposure** — the underlying commercial obligation
+- **Notional** — the amount being hedged
+- **Maturity** — the date when settlement occurs
+- **Settlement** — exchange of currencies or offset of the position
+
+### How forward pricing works
+
+A forward rate is not a prediction of where the market will be. It is calculated from two components:
+
+```
+Forward Rate = Spot Rate + Forward Points
+```
+
+- **Spot rate** — the current market exchange rate
+
+- **Forward points** — an adjustment derived from the interest rate differential between the two currencies over the hedge period
+
+The forward points are determined by a forward curve, which reflects how interest rate differentials change across different maturities. A longer hedge period generally means larger forward points (positive or negative depending on the currency pair).
+
+## Full Exposure Hedging
+
+With traditional FX providers, partners must estimate their own hedging needs — accounting for cancellations, net-outs, and other variables — and only hedge what they're confident will materialize. If they get it wrong, they're either exposed or paying for unnecessary hedges.
+
+Grain's core hedging model allows partners to hedge their full reported exposure. Grain's pricing engine analyzes the partner's historical patterns — cancellations, net-outs, timing, and other behavioral signals — and factors that into the hedge pricing. Partners get full coverage at a cost-effective price, without managing the forecasting themselves. This capability is configured per partner during onboarding based on data availability and business fit.
+
+## Spot Transactions vs Hedges
+
+Grain offers two ways to exchange currencies:
+
+- **Spot** — an immediate currency conversion at the current market rate. Settlement typically occurs on the same day or within T+2. Use spots when you need to convert funds now with no future rate risk.
+
+- **Hedge (Forward)** — locks a rate for a future date, removing uncertainty about what the exchange rate will be at settlement. Use hedges when there is a time gap between commitment and payment.
+
+The choice depends on timing. If the payment is immediate, use a spot. If the payment is in the future and the business wants certainty on the rate, use a hedge.
+
+## Grain Rates vs Grain Quotes
+
+**Rates**
+
+Spot rates used for display and analytics. Not executable. These are mid-market reference prices.
+
+**Quotes**
+
+The actual prices you trade on. Available for both spots and hedges. Quotes include buy/sell spread, markup, timestamp, and expiration. A quote must be accepted before it expires. Clients should not compare executable quotes to Google FX, which shows mid-market rates.
+
+## Collateral & Variation Margin
+
+When a hedge is created, the market may move against the locked rate before settlement. Collateral and variation margin are mechanisms to manage this counterparty risk.
+
+- **Initial Collateral** — an upfront deposit required when the hedge is created, typically a percentage of the notional amount. It acts as a security buffer.
+
+- **Variation Margin** — additional collateral that may be called if the market moves significantly against the hedge position (mark-to-market loss exceeds a threshold).
+
+Grain offers two models:
+
+- **Collateralized** — the partner posts initial collateral and may be subject to variation margin calls. Standard in traditional FX.
+
+- **Non-collateralized** — no upfront deposit or margin calls required. Grain assumes the counterparty risk on behalf of the partner, enabling a frictionless integration with no capital lockup.
+
+How Grain manages risk: across both models, Grain uses proprietary AI models to optimize hedging execution — ensuring cost-effective risk management while providing partners with full-exposure coverage.

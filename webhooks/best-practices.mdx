@@ -1,0 +1,24 @@
+---
+title: "Best Practices"
+description: "Idempotency, ordering, error handling, and testing for webhooks"
+---
+
+## Idempotency
+
+Use the `eventId` field to deduplicate events. The same event may be delivered more than once due to retries. Store processed event IDs and skip any you have already handled.
+
+## Ordering
+
+Events may arrive out of order. Use `createdAtTs` to determine event chronology, and always check the current state via the relevant API endpoint if your logic depends on the latest status.
+
+## Error Handling
+
+If your endpoint encounters an error while processing an event, return a 5xx status code so Grain retries delivery. Return 2xx only after you have successfully processed the event or persisted it for later processing.
+
+## Testing
+
+Always configure and test your webhook endpoint in the Sandbox environment before activating webhooks in Live. Verify that your endpoint correctly parses the envelope, validates the HMAC signature, and returns a 2xx response.
+
+## Monitoring
+
+Track webhook delivery health by logging all incoming events and monitoring for gaps. If you notice missing events, verify your endpoint's availability and check with your account manager for delivery logs.

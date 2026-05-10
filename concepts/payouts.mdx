@@ -1,0 +1,26 @@
+---
+title: "Payouts"
+description: "What payouts are, how to use them with hedges, and the payout lifecycle"
+---
+
+## What Is a Payout
+
+A payout is a payment sent from a Grain wallet to an external beneficiary. Payouts can be executed independently or combined with hedging.
+
+A common pattern is to use payouts together with full settlement hedges for scheduled vendor payments: lock a rate by creating a hedge with full settlement, wait for settlement to credit your wallet, then trigger a payout to the vendor. This ensures the payment amount is protected from FX movement between the time of booking and the actual payment date.
+
+Payouts rely on a partner bank for execution and require payout functionality to be enabled in the dashboard before use.
+
+## Payout Lifecycle
+
+1. **In Process** — payout is funded and being processed
+
+2. **Sent** — funds dispatched to partner bank
+
+3. **Paid** — confirmed delivered to beneficiary
+
+4. **Failed** — execution failed
+
+5. **Rejected** — partner bank rejected the payout
+
+Each state transition has allowed next states, associated webhook events, and funding or bank requirements.

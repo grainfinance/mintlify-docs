@@ -1,0 +1,326 @@
+---
+title: "Events"
+description: "All webhook event types, their payloads, and example data"
+---
+
+{/* This file is auto-generated from scripts/generate-webhook-docs.ts in the grain repo. Do not edit manually. */}
+
+## Envelope fields
+
+Every webhook notification includes these top-level metadata fields:
+
+| Field          | Type   | Description                                                       |
+| :------------- | :----- | :---------------------------------------------------------------- |
+| eventId        | string | Deterministic unique UUID. Use for idempotency and deduplication. |
+| environment    | string | "Live" or "Sandbox".                                              |
+| createdAtTs    | number | Unix timestamp (ms) indicating when the event was created.        |
+| version        | string | Payload schema version. Currently "1.0".                          |
+| organizationId | string | UUID of the organization the event belongs to.                    |
+
+## Events summary
+
+| Event                             | Trigger                                                |
+| :-------------------------------- | :----------------------------------------------------- |
+| hedge.cancelled                   | Hedge has been canceled.                               |
+| hedge.completed                   | Hedge has been fully settled.                          |
+| hedge.overdue                     | Hedge has passed its settlement date without settling. |
+| hedge.initial.collateral.received | Initial collateral deposit has been received.          |
+| hedge.initial.collateral.overdue  | Initial collateral deposit is past due.                |
+| hedge.upcoming.settlement         | Settlement date is approaching.                        |
+| wallet.deposit.received           | A deposit has been received into a wallet.             |
+
+---
+
+## hedge.cancelled
+
+Sent when a hedge is canceled by the customer or by the system.
+
+**Payload fields:**
+
+| Field                 | Type   | Description                               |
+| :-------------------- | :----- | :---------------------------------------- |
+| hedgeId               | string | Unique identifier of the hedge.           |
+| fromCurrency          | string | Source currency code (e.g., "USD").       |
+| fromCurrencyAmount    | number | Amount in the source currency.            |
+| toCurrency            | string | Target currency code (e.g., "EUR").       |
+| toCurrencyAmount      | number | Amount in the target currency.            |
+| settlementType        | string | "full", "offset", or "manual".            |
+| externalTransactionId | string | External transaction identifier.          |
+| cancelledAt           | string | Date the hedge was canceled (YYYY-MM-DD). |
+| cancelReason          | string | Reason for cancellation.                  |
+
+**Example payload:**
+
+```json
+{
+  "environment": "Live",
+  "version": "1.0",
+  "organizationId": "98f7e6d5-c4b3-2a10-9876-543210fedcba",
+  "eventId": "hedge-cancelled_c3d4e5f6-a7b8-9012-cdef-123456789012",
+  "createdAtTs": 1710932100000,
+  "type": "hedge.cancelled",
+  "data": {
+    "hedgeId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "fromCurrency": "USD",
+    "fromCurrencyAmount": 100000,
+    "toCurrency": "EUR",
+    "toCurrencyAmount": 91250,
+    "settlementType": "full",
+    "externalTransactionId": "ext_tx_001",
+    "cancelledAt": "2026-03-20",
+    "cancelReason": "Requested by customer"
+  }
+}
+```
+
+---
+
+## hedge.completed
+
+Sent when a hedge is fully settled on its settlement date.
+
+**Payload fields:**
+
+| Field                 | Type   | Description                              |
+| :-------------------- | :----- | :--------------------------------------- |
+| hedgeId               | string | Unique identifier of the hedge.          |
+| fromCurrency          | string | Source currency code (e.g., "USD").      |
+| fromCurrencyAmount    | number | Amount in the source currency.           |
+| toCurrency            | string | Target currency code (e.g., "EUR").      |
+| toCurrencyAmount      | number | Amount in the target currency.           |
+| settlementType        | string | "full", "offset", or "manual".           |
+| externalTransactionId | string | External transaction identifier.         |
+| completedAt           | string | Date the hedge was settled (YYYY-MM-DD). |
+
+**Example payload:**
+
+```json
+{
+  "environment": "Live",
+  "version": "1.0",
+  "organizationId": "98f7e6d5-c4b3-2a10-9876-543210fedcba",
+  "eventId": "hedge-completed_a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "createdAtTs": 1711461000000,
+  "type": "hedge.completed",
+  "data": {
+    "hedgeId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "fromCurrency": "USD",
+    "fromCurrencyAmount": 100000,
+    "toCurrency": "EUR",
+    "toCurrencyAmount": 91250,
+    "settlementType": "full",
+    "externalTransactionId": "ext_tx_001",
+    "completedAt": "2026-03-26"
+  }
+}
+```
+
+---
+
+## hedge.overdue
+
+Sent when a hedge passes its settlement date without being settled.
+
+**Payload fields:**
+
+| Field                 | Type   | Description                                 |
+| :-------------------- | :----- | :------------------------------------------ |
+| hedgeId               | string | Unique identifier of the hedge.             |
+| fromCurrency          | string | Source currency code (e.g., "USD").         |
+| fromCurrencyAmount    | number | Amount in the source currency.              |
+| toCurrency            | string | Target currency code (e.g., "EUR").         |
+| toCurrencyAmount      | number | Amount in the target currency.              |
+| settlementType        | string | "full", "offset", or "manual".              |
+| externalTransactionId | string | External transaction identifier.            |
+| overdueAt             | string | Date the hedge became overdue (YYYY-MM-DD). |
+
+**Example payload:**
+
+```json
+{
+  "environment": "Live",
+  "version": "1.0",
+  "organizationId": "98f7e6d5-c4b3-2a10-9876-543210fedcba",
+  "eventId": "hedge-overdue_b2c3d4e5-f6a7-8901-bcde-f12345678901",
+  "createdAtTs": 1711524000000,
+  "type": "hedge.overdue",
+  "data": {
+    "hedgeId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "fromCurrency": "USD",
+    "fromCurrencyAmount": 100000,
+    "toCurrency": "EUR",
+    "toCurrencyAmount": 91250,
+    "settlementType": "full",
+    "externalTransactionId": "ext_tx_001",
+    "overdueAt": "2026-03-27"
+  }
+}
+```
+
+---
+
+## hedge.initial.collateral.received
+
+Sent when the initial collateral deposit for a hedge has been received.
+
+**Payload fields:**
+
+| Field                       | Type   | Description                                    |
+| :-------------------------- | :----- | :--------------------------------------------- |
+| hedgeId                     | string | Unique identifier of the hedge.                |
+| fromCurrency                | string | Source currency code (e.g., "USD").            |
+| fromCurrencyAmount          | number | Amount in the source currency.                 |
+| toCurrency                  | string | Target currency code (e.g., "EUR").            |
+| toCurrencyAmount            | number | Amount in the target currency.                 |
+| settlementType              | string | "full", "offset", or "manual".                 |
+| externalTransactionId       | string | External transaction identifier.               |
+| initialCollateralAmount     | number | Amount of collateral received.                 |
+| initialCollateralReceivedAt | string | Date the collateral was received (YYYY-MM-DD). |
+
+**Example payload:**
+
+```json
+{
+  "environment": "Live",
+  "version": "1.0",
+  "organizationId": "98f7e6d5-c4b3-2a10-9876-543210fedcba",
+  "eventId": "hedge-initial-collateral-received_d4e5f6a7-b8c9-0123-defa-234567890123",
+  "createdAtTs": 1710496500000,
+  "type": "hedge.initial.collateral.received",
+  "data": {
+    "hedgeId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "fromCurrency": "USD",
+    "fromCurrencyAmount": 100000,
+    "toCurrency": "EUR",
+    "toCurrencyAmount": 91250,
+    "settlementType": "full",
+    "externalTransactionId": "ext_tx_001",
+    "initialCollateralAmount": 5000,
+    "initialCollateralReceivedAt": "2026-03-15"
+  }
+}
+```
+
+---
+
+## hedge.initial.collateral.overdue
+
+Sent when the initial collateral deposit has not been received by its due date.
+
+**Payload fields:**
+
+| Field                   | Type   | Description                               |
+| :---------------------- | :----- | :---------------------------------------- |
+| hedgeId                 | string | Unique identifier of the hedge.           |
+| fromCurrency            | string | Source currency code (e.g., "USD").       |
+| fromCurrencyAmount      | number | Amount in the source currency.            |
+| toCurrency              | string | Target currency code (e.g., "EUR").       |
+| toCurrencyAmount        | number | Amount in the target currency.            |
+| settlementType          | string | "full", "offset", or "manual".            |
+| externalTransactionId   | string | External transaction identifier.          |
+| initialCollateralAmount | number | Expected collateral amount.               |
+| initialCollateralDueAt  | string | Date the collateral was due (YYYY-MM-DD). |
+
+**Example payload:**
+
+```json
+{
+  "environment": "Live",
+  "version": "1.0",
+  "organizationId": "98f7e6d5-c4b3-2a10-9876-543210fedcba",
+  "eventId": "hedge-initial-collateral-overdue_e5f6a7b8-c9d0-1234-efab-345678901234",
+  "createdAtTs": 1710576000000,
+  "type": "hedge.initial.collateral.overdue",
+  "data": {
+    "hedgeId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "fromCurrency": "USD",
+    "fromCurrencyAmount": 100000,
+    "toCurrency": "EUR",
+    "toCurrencyAmount": 91250,
+    "settlementType": "full",
+    "externalTransactionId": "ext_tx_001",
+    "initialCollateralAmount": 5000,
+    "initialCollateralDueAt": "2026-03-15"
+  }
+}
+```
+
+---
+
+## hedge.upcoming.settlement
+
+Sent as a reminder that a hedge settlement date is approaching.
+
+**Payload fields:**
+
+| Field                 | Type   | Description                            |
+| :-------------------- | :----- | :------------------------------------- |
+| hedgeId               | string | Unique identifier of the hedge.        |
+| fromCurrency          | string | Source currency code (e.g., "USD").    |
+| fromCurrencyAmount    | number | Amount in the source currency.         |
+| toCurrency            | string | Target currency code (e.g., "EUR").    |
+| toCurrencyAmount      | number | Amount in the target currency.         |
+| settlementType        | string | "full", "offset", or "manual".         |
+| externalTransactionId | string | External transaction identifier.       |
+| settlementAt          | string | Upcoming settlement date (YYYY-MM-DD). |
+
+**Example payload:**
+
+```json
+{
+  "environment": "Live",
+  "version": "1.0",
+  "organizationId": "98f7e6d5-c4b3-2a10-9876-543210fedcba",
+  "eventId": "hedge-upcoming-settlement_f6a7b8c9-d0e1-2345-fabc-456789012345",
+  "createdAtTs": 1711180800000,
+  "type": "hedge.upcoming.settlement",
+  "data": {
+    "hedgeId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "fromCurrency": "USD",
+    "fromCurrencyAmount": 100000,
+    "toCurrency": "EUR",
+    "toCurrencyAmount": 91250,
+    "settlementType": "full",
+    "externalTransactionId": "ext_tx_001",
+    "settlementAt": "2026-03-26"
+  }
+}
+```
+
+---
+
+## wallet.deposit.received
+
+Sent when a deposit is received into a wallet.
+
+**Payload fields:**
+
+| Field       | Type           | Description                                  |
+| :---------- | :------------- | :------------------------------------------- |
+| walletId    | string         | Unique identifier of the wallet.             |
+| transferId  | string         | Unique identifier of the transfer.           |
+| currency    | string         | Currency code of the deposit (e.g., "USD").  |
+| amount      | number         | Deposit amount.                              |
+| completedAt | string         | Date the deposit was completed (YYYY-MM-DD). |
+| depositedBy | string \| null | Name of the depositing entity, if available. |
+
+**Example payload:**
+
+```json
+{
+  "environment": "Live",
+  "version": "1.0",
+  "organizationId": "98f7e6d5-c4b3-2a10-9876-543210fedcba",
+  "eventId": "wallet-deposit-received_a7b8c9d0-e1f2-3456-abcd-567890123456",
+  "createdAtTs": 1711200000000,
+  "type": "wallet.deposit.received",
+  "data": {
+    "walletId": "f1e2d3c4-b5a6-7890-fedc-ba0987654321",
+    "transferId": "f6a7b8c9-d0e1-2345-f012-678901234567",
+    "currency": "USD",
+    "amount": 25000,
+    "completedAt": "2026-03-23",
+    "depositedBy": "Acme Corp"
+  }
+}
+```

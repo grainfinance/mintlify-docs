@@ -1,87 +1,138 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Grain Developer Portal",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#3D82F7",
+    "light": "#6AA0F9",
+    "dark": "#2563EB"
   },
   "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Get Started",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Get Started",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Customization",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "get-started/index",
+              "get-started/setup-your-configuration",
+              "get-started/retrieve-api-keys",
+              "get-started/create-your-first-customer",
+              "get-started/create-your-first-hedge",
+              "get-started/hedge-settlement"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "Concepts",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Overview",
             "pages": [
-              "api-reference/introduction"
+              "concepts/index",
+              "concepts/core-concepts",
+              "concepts/quotes",
+              "concepts/hedge-lifecycle",
+              "concepts/settlements",
+              "concepts/funding-wallets",
+              "concepts/payouts"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": ["api-reference/introduction"]
+          },
+          {
+            "group": "Hedges",
+            "pages": [
+              {
+                "group": "Real Time",
+                "pages": [
+                  "api-reference/hedges/get-quote",
+                  "api-reference/hedges/accept-quote"
+                ]
+              },
+              {
+                "group": "Offline",
+                "pages": [
+                  "api-reference/hedges/get-offline-rates",
+                  "api-reference/hedges/accept-offline-quote"
+                ]
+              },
+              "api-reference/hedges/list-hedges",
+              "api-reference/hedges/get-hedge",
+              "api-reference/hedges/cancel-hedge",
+              "api-reference/hedges/early-settlement-quote",
+              "api-reference/hedges/early-settlement-accept"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Dual Hedges",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/dual-hedges/get-offline-rates",
+              "api-reference/dual-hedges/accept-offline-quote",
+              "api-reference/dual-hedges/list-dual-hedges",
+              "api-reference/dual-hedges/get-dual-hedge",
+              "api-reference/dual-hedges/cancel-dual-hedge"
+            ]
+          },
+          {
+            "group": "Customers",
+            "pages": [
+              "api-reference/customers/create-customer",
+              "api-reference/customers/list-customers",
+              "api-reference/customers/get-customer",
+              "api-reference/customers/update-customer",
+              "api-reference/customers/delete-customer"
+            ]
+          },
+          {
+            "group": "Pricing",
+            "pages": ["api-reference/pricing/get-exchange-rate"]
+          },
+          {
+            "group": "Spots",
+            "pages": [
+              "api-reference/spots/get-quote",
+              "api-reference/spots/accept-quote",
+              "api-reference/spots/list-spots",
+              "api-reference/spots/get-spot"
+            ]
+          },
+          {
+            "group": "Wallets",
+            "pages": [
+              "api-reference/wallets/list-wallets",
+              "api-reference/wallets/get-wallet",
+              "api-reference/wallets/withdraw"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Webhooks",
+        "groups": [
+          {
+            "group": "Webhooks",
+            "pages": [
+              "webhooks/index",
+              "webhooks/signature-verification",
+              "webhooks/webhook-envelope",
+              "webhooks/events",
+              "webhooks/best-practices"
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
@@ -91,32 +142,16 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:support@grainfinance.co"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://console.grainfinance.co"
     }
-  },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
   },
   "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
+    "copyright": "Copyright © 2026 Grain Finance, Inc."
   }
 }

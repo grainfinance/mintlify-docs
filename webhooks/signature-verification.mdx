@@ -1,0 +1,78 @@
+---
+title: "Signature Verification"
+description: "How to verify that webhook requests originate from Grain"
+---
+
+Grain signs all webhook payloads with an HMAC signature so you can verify they originated from Grain and haven't been tampered with.
+
+## Headers
+
+Each webhook request includes two security headers:
+
+| Header            | Description                                          |
+| :---------------- | :--------------------------------------------------- |
+| X-Grain-Signature | HMAC-SHA256 signature in format `v1={signature}`     |
+| X-Grain-Timestamp | Unix timestamp (seconds) when the request was signed |
+
+## Verification Steps
+
+1. **Extract the timestamp and signature** from the request headers.
+
+2. **Check the timestamp** is within an acceptable window (recommended: 5 minutes). This protects against replay attacks.
+
+3. **Compute the expected signature** using your webhook secret.
+
+4. **Compare signatures** using a timing-safe comparison function.
+
+## Computing the Signature
+
+The signature is computed over the string `{timestamp}.{raw_request_body}`:
+
+```
+signed_payload = "{timestamp}.{raw_json_body}"
+expected_signature = "v1=" + HMAC-SHA256(signed_payload, your_webhook_secret)
+```
+
+## Python Example
+
+```python
+import hmac
+import hashlib
+import time
+
+TOLERANCE_SECONDS = 300  # 5 minutes
+
+def verify_webhook_signature(
+    payload: str,      # raw request body
+    signature: str,    # X-Grain-Signature header
+    timestamp: str,    # X-Grain-Timestamp header
+    secret: str        # your webhook secret
+) -> bool:
+    timestamp_int = int(timestamp)
+    now = int(time.time())
+
+    # Reject if timestamp is too old
+    if now - timestamp_int > TOLERANCE_SECONDS:
+        return False
+
+    # Compute expected signature
+    signed_payload = f"{timestamp}.{payload}"
+    expected_sig = "v1=" + hmac.new(
+        secret.encode(),
+        signed_payload.encode(),
+        hashlib.sha256
+    ).hexdigest()
+
+    # Timing-safe comparison
+    return hmac.compare_digest(signature, expected_sig)
+```
+
+## Important Notes
+
+- **Always use the raw request body** — do not parse and re-serialize the JSON, as this may change the payload.
+
+- **Use timing-safe comparison** — standard string comparison is vulnerable to timing attacks.
+
+- **Validate the timestamp** — this protects against replay attacks where an attacker resends a captured request.
+
+- **Store your secret securely** — treat it like a password; never commit it to source control.
