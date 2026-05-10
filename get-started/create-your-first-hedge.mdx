@@ -1,0 +1,80 @@
+---
+title: "Create Your First Hedge"
+description: "Get a quote and accept it to create a hedge"
+---
+
+After sharing your historical business transactions and creating your customers, you can start hedging transactions. At Grain, hedging is a two-step process — get a quote, then accept it.
+
+## 1. Get a quote
+
+First, get a quote for your cross-currency business transaction. The quote can be used to display a product price to your customers in a local currency. Grain offers two methods for pulling quotes:
+
+### a. Real-time quote
+
+Pull an online quote on demand for a specific due date, with a default expiration of 5 minutes. Get the local currency price using the [get quote endpoint](/api-reference/hedges/get-quote):
+
+```bash
+curl -X POST https://api.grainfinance.co/v1/customers/{customerId}/hedges/quote \
+  -u "{clientId}:{secret}" \
+  -H "Content-Type: application/json" \
+  -H "X-Customer-IP: {ipOfYourCustomer}" \
+  -d '{
+    "fromCurrency": "{fromCurrency}",
+    "toCurrency": "{toCurrency}",
+    "toCurrencyAmount": "{toCurrencyAmount}",
+    "endAt": "{endAt}"
+  }'
+```
+
+### b. Offline quotes
+
+Retrieve quotes for all operational currencies and supported tenors in a single call. You'll receive a complete quote table, which allows offline quote selection based on each transaction's currency pair, due date, and corresponding tenor. This approach eliminates the need to call Grain individually for each transaction and reduces system load. The table's expiration time is configurable, with a default of 1 hour. Retrieve bulk offline quotes using the [offline quote endpoint](/api-reference/hedges/get-offline-rates):
+
+```bash
+curl https://api.grainfinance.co/v1/offline-rates \
+  -u "{clientId}:{secret}"
+```
+
+## 2. Accept the quote
+
+In this step, you will accept a quote you received in the previous step and create the hedge.
+
+**a. Accept real-time quote** — if you used the "Get Real-time quote" call, send the quote ID received in that call (as `hedgeProposalId`) using the [accept quote endpoint](/api-reference/hedges/accept-quote):
+
+```bash
+curl -X POST https://api.grainfinance.co/v1/customers/{customerId}/hedges/accept-quote \
+  -u "{clientId}:{secret}" \
+  -H "Content-Type: application/json" \
+  -H "X-Customer-IP: {ipOfYourCustomer}" \
+  -d '{
+    "hedgeProposalId": "{hedgeProposalId}",
+    "transactionId": "{transactionId}"
+  }'
+```
+
+**b. Accept offline quote** — if you used the offline option to get the quotes, send the calculated rate and its revision, along with the from and to currencies, the amount in the to currency, and the end date. Use the [accept offline quote endpoint](/api-reference/hedges/accept-offline-quote):
+
+```bash
+curl -X POST https://api.grainfinance.co/v1/customers/{customerId}/hedges/accept-offline-quote \
+  -u "{clientId}:{secret}" \
+  -H "Content-Type: application/json" \
+  -H "X-Customer-IP: {ipOfYourCustomer}" \
+  -d '{
+    "revision": "{revision}",
+    "fromCurrency": "{fromCurrency}",
+    "toCurrency": "{toCurrency}",
+    "toCurrencyAmount": "{toCurrencyAmount}",
+    "endAt": "{endAt}",
+    "rate": "{rate}"
+  }'
+```
+
+{/* <iframe
+  width="100%"
+  height="400"
+  src="https://www.youtube.com/embed/8Nj17xDEJQs"
+  title="Create Hedge API"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/> */}

@@ -1,33 +1,44 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: "API Reference"
+description: "Grain's REST API for managing hedges, spots, pricing, and fund movements"
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+Grain's API provides a comprehensive set of endpoints for managing hedging, spot transactions, pricing, and fund movements — enabling seamless integration of FX workflows into your platform.
 
-## Welcome
+## Base URL
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
-
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+```
+https://api.grainfinance.co/v1
+```
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All endpoints use **HTTP Basic Authentication**. Your Client ID is the username and your Secret is the password.
+
+```bash
+curl https://api.grainfinance.co/v1/... \
+  -u "{clientId}:{secret}"
+```
+
+You can find your credentials in the [Grain Dashboard](https://console.grainfinance.co/keys) under **Developer → API Keys**. Each environment (Sandbox and Live) has separate credentials.
+
+## Environments
+
+| Environment | Base URL                                                   |
+| :---------- | :--------------------------------------------------------- |
+| Sandbox     | `https://api.grainfinance.co/v1` (use Sandbox credentials) |
+| Live        | `https://api.grainfinance.co/v1` (use Live credentials)    |
+
+Switch between environments by swapping your Client ID and Secret — the base URL is the same for both.
+
+## Response format
+
+All responses are JSON. Errors follow a consistent structure:
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+{
+  "message": "A description of the error"
+}
 ```
+
+HTTP status codes follow standard conventions: `2xx` for success, `4xx` for client errors, `5xx` for server errors.

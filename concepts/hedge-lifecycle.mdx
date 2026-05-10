@@ -1,0 +1,34 @@
+---
+title: "Hedge Lifecycle"
+description: "Customers, hedge statuses, mark-to-market, and dual hedges"
+---
+
+## Customers
+
+Partners can associate hedges with specific customers (end-users) by reporting customer details through the API. Each hedge is tied to a customer record, which enables partners to track, reconcile, and report hedging activity on a per-customer basis. This is especially useful for platforms that manage FX on behalf of many underlying customers and need clear traceability from hedge to end-user. If no customer is specified, all hedges are assigned to a default customer.
+
+## Hedge Statuses
+
+Grain's lifecycle differs from banking systems by explicitly separating execution, drawdown, and settlement, allowing more flexibility for platform-driven hedging. The API maps each stage to clear status values.
+
+1. **In Process** — hedge is being set up, quote accepted but not yet fully active
+
+2. **Active** — hedge awaits settlement or drawdown
+
+3. **Completed** — amounts exchanged successfully
+
+4. **Overdue** — past maturity without settlement
+
+5. **Cancelled** — hedge terminated
+
+## Mark-to-Market (MTM)
+
+Mark-to-Market is the current unrealized profit or loss on an open hedge, calculated by comparing the locked rate to the current market rate. Partners can see MTM values on active hedges via the API.
+
+MTM matters because it directly impacts variation margin. If the market moves significantly against a hedge position (i.e., the MTM loss exceeds a threshold), Grain may issue a variation margin call — requiring additional collateral to cover the increased risk. See [Collateral & Variation Margin](/concepts/core-concepts#collateral--variation-margin) for details on Grain's collateralized vs non-collateralized models.
+
+## Dual Hedge
+
+Some exposures require two legs (e.g., customer → platform → supplier). A dual hedge is two coordinated hedges priced at the same time, covering both the cash flow and accounting sides of a transaction. Both legs are priced together, ensuring the platform is fully protected on both the cash flow and accounting sides, while each leg settles independently.
+
+For example, a travel platform collects GBP from a UK customer, reports in EUR (its functional currency), and pays USD to a US hotel supplier. Leg 1 hedges GBP → EUR (customer payment to functional currency). Leg 2 hedges EUR → USD (functional currency to supplier payment).

@@ -1,0 +1,32 @@
+---
+title: "Funding & Wallets"
+description: "Functional currency, wallets, and fund transfer types"
+---
+
+## Functional Currency
+
+A company's accounting currency (e.g., EUR for a European company). The key implication in Grain is that all hedge settlements can be directed to the functional currency wallet instead of the To Currency — allowing the company to receive proceeds in its home accounting currency regardless of the currency pair being hedged.
+
+## Wallets
+
+Wallets are central to hedge settlement, payout funding, and early drawdown funding. Each wallet represents a currency-specific ledger.
+
+Wallet Balance formula: `Total = Available + Pending + Held`
+
+- **Available** — usable funds that can be transferred or withdrawn
+
+- **Pending** — incoming or outgoing, not yet settled
+
+- **Held** — funds reserved for hedges or payouts
+
+## Fund Transfers
+
+Fund transfers are ledger entries that record the movement of funds in and out of wallets. Every transfer creates a debit or credit on a wallet's balance, and the wallet's total balance is the sum of all its transfer records.
+
+Transfer types:
+
+1. **Deposits** — incoming funds from an external bank account into a Grain wallet
+2. **Settlement Funding** — debit or credit entries created when a hedge settles. Debit when funds are taken from the wallet to settle, credit when settlement proceeds are received
+3. **Payouts** — funds sent from a Grain wallet to an external beneficiary (vendor, supplier, customer)
+4. **Withdrawals** — funds moved out of a Grain wallet back to the organization's own bank account
+5. **Currency Exchange (Spot)** — immediate conversion between two currency wallets, debiting one and crediting the other

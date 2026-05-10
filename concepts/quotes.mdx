@@ -1,0 +1,69 @@
+---
+title: "Quotes"
+description: "Real-time vs offline quotes, expiration, fixed side, and quote calculation"
+---
+
+## Real-Time vs Offline Quotes
+
+Grain offers two quoting and execution flows. Each has a separate Quote step (get a price) and Accept step (lock the trade).
+
+### Real-time
+
+**Quote:** The partner calls Grain's API to get a live executable price for a specific transaction. Grain fetches a rate from a liquidity provider and returns it with an expiration window.
+
+**Accept:** The partner accepts the quote before it expires. The trade is executed immediately at the quoted rate. If the quote has expired, the partner must request a new one.
+
+Use real-time for lower-volume, higher-value transactions where the partner can afford an API call per transaction — e.g., a customer confirming a specific payment or hedge.
+
+### Offline
+
+**Quote:** The partner pre-fetches rates from Grain in bulk, then stores and applies them locally without calling Grain for every individual transaction. This avoids high API call volumes in scenarios where thousands of results need FX pricing simultaneously.
+
+**Accept:** When the end customer selects a specific transaction, the partner sends the accept call to Grain referencing the pre-fetched rate. Grain executes the trade based on the previously quoted price.
+
+Use offline for high-volume, display-heavy scenarios — e.g., a bedbank searching for hotels where each search result needs an FX-converted price. Calling Grain in real time for every hotel in every search would create excessive load. Instead, the partner fetches rates periodically and applies them locally.
+
+## Quote Expiration
+
+Every quote includes a `validUntilTs` field — a timestamp indicating when the quote expires. After this time, the quote can no longer be accepted and the partner must request a new one.
+
+Quote validity directly impacts pricing: a longer validity window means Grain carries more market risk while holding the price, which may result in a wider spread. Real-time quotes typically have short validity, while offline quotes may be valid for longer periods.
+
+| API Endpoint           | Rate Type | Executable | Markup | Use Case                 |
+| :--------------------- | :-------- | :--------- | :----- | :----------------------- |
+| /pricing/rate          | Spot      | No         | No     | Display / Analytics      |
+| /hedges/realtime/quote | Hedge     | Yes        | Yes    | Real-time execution      |
+| /hedges/offline/quote  | Hedge     | Yes        | Yes    | Bulk / offline execution |
+| /spots/quote           | Spot      | Yes        | Yes    | Same-day conversion      |
+
+## Fixed Side (Quote Direction)
+
+When requesting a real-time quote, you must specify which side of the currency pair is fixed — this is called the fixed side, or quote direction.
+
+- **From Amount** — "I have X; tell me how much Y I'll get." The source amount is fixed, Grain calculates the target.
+
+- **To Amount** — "I need Y; tell me how much X I must send." The target amount is fixed, Grain calculates the source.
+
+These two modes eliminate ambiguity in FX direction. The fixed side determines how the quote is priced and which amount appears in the response.
+
+**Common mistakes:** reversing the currency pair, mixing direction between From and To, and expecting symmetry between the two modes (not guaranteed due to spread and rounding).
+
+## Quote Calculation
+
+In Grain, the quote is always expressed as:
+
+```
+fromCurrencyAmount = toCurrencyAmount × quote
+```
+
+To calculate the From Amount, you should multiply the To Amount by the quote.
+To calculate the To Amount, you should divide the From Amount by the quote.
+
+Example (GBP to USD, quote = 0.7891):
+
+```
+From Amount: 10,000 USD × 0.7891 = 7,891 GBP
+To Amount:   7,891 GBP / 0.7891 = 10,000 USD
+```
+
+The customer sends 7,891 GBP (`fromCurrencyAmount`) and receives 10,000 USD (`toCurrencyAmount`).

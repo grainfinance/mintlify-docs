@@ -1,0 +1,16 @@
+---
+title: "Setup Your Configuration"
+description: "Initial configuration steps before integrating with the Grain API"
+---
+
+Before you integrate with our API, we'll set up a few initial configurations based on your business needs:
+
+- **Currency pairs** - define the currency pairs you want to hedge with Grain.
+
+- **Settlement type** - Grain supports two main settlement types: Full Settlement and Offset Settlement. In Full Settlement, Grain will process and settle the entire hedge amount, while in Offset settlement, Grain will process only the difference between the amount at Hedge creation and the amount at settlement.
+
+- **Functional currency** - you can select to settle all hedges in a single functional currency your business operates in, or you can select to settle each hedge in its own currency. For each currency you settle in, we'll set up a dedicated wallet.
+
+- **Withdraw beneficiary** - share the beneficiary details to where money should be withdrawn from Grain. Each currency wallet should have a separate withdrawal beneficiary set up.
+
+- **Bank account details** - share your main bank account details for regulatory purposes.

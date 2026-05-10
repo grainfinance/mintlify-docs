@@ -1,0 +1,39 @@
+---
+title: "Create Your First Customer"
+description: "Create a customer record before creating a hedge"
+---
+
+Before you create a hedge, you need to create its customer. Create your first customer using the [create customer](/api-reference/customers/create-customer) API:
+
+```bash
+curl -X POST https://api.grainfinance.co/v1/customers \
+  -u "{clientId}:{secret}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "contactEmail": "{contactEmail}",
+    "contactFullName": "{contactFullName}",
+    "contactPhoneNumber": "{contactPhoneNumber}",
+    "companyName": "{companyName}",
+    "companyAddress": "{companyAddress}",
+    "externalCustomerId": "{externalCustomerId}",
+    "companyCity": "{companyCity}"
+  }'
+```
+
+In the response, you will receive the id of the created customer.
+
+```json
+{
+  "id": "{customerId}"
+}
+```
+
+{/* <iframe
+  width="100%"
+  height="400"
+  src="https://www.youtube.com/embed/Xo9Fqx8buBI"
+  title="Create Customer API"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/> */}
