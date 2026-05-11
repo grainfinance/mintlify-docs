@@ -32,7 +32,6 @@
           {
             "group": "Overview",
             "pages": [
-              "concepts/index",
               "concepts/core-concepts",
               "concepts/quotes",
               "concepts/hedge-lifecycle",
