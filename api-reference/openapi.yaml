@@ -2271,7 +2271,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/HedgeQuoteRequestBody"
-              description: The payload required in order to ask for a hedge quote
             examples:
               toCurrencyAmount:
                 value:
@@ -2424,7 +2423,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/AcceptHedgeProposalRequestBody"
-              description: The payload required in order to accept a hedge
             example:
               hedgeProposalId: 497f6eca-6276-4993-bfeb-53cbbbba6f08
               externalTransactionId: 780231b3ae0d7e9e5097nd89
@@ -2559,7 +2557,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/AcceptOfflineHedgeProposalRequestBody"
-              description: The payload required in order to accept an offline quote hedge
   /customers/{customerId}/hedges/{hedgeId}:
     get:
       operationId: Get
@@ -2846,7 +2843,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/AcceptOfflineDualHedgeProposalRequestBody"
-              description: The payload required to accept an offline quote for a dual hedge
   /customers/{customerId}/dual-hedges/{dualHedgeId}:
     get:
       operationId: Get
@@ -3059,7 +3055,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/CreateUpdateCustomerRequestBody"
-              description: The payload required in order to create a customer
     get:
       operationId: List
       responses:
@@ -3193,7 +3188,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/Partial_CreateUpdateCustomerRequestBody_"
-              description: The payload required in order to update a customer
   /rates/currency-pairs-exchange-rate:
     get:
       operationId: Rate
@@ -3300,7 +3294,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/QuoteRequestBody"
-              description: The payload required in order to ask for a spot quote
   /spots/accept-quote:
     post:
       operationId: Accept
@@ -3365,7 +3358,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/AcceptSpotProposalRequestBody"
-              description: The payload required in order to accept a spot
   /spots/{spotId}:
     get:
       operationId: Get
@@ -3588,7 +3580,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/AcceptEarlySettlementRequestBody"
-              description: The payload required to accept an early settlement proposal
   /wallets:
     get:
       operationId: List
@@ -3700,7 +3691,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/WithdrawRequestBody"
-              description: The payload required in order to withdraw fund transfers
 servers:
   - url: https://api.grainfinance.co/v1
     description: Grain API
