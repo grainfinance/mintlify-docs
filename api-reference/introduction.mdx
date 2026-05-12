@@ -7,7 +7,7 @@ Grain's API provides a comprehensive set of endpoints for managing hedging, spot
 
 ## Base URL
 
-```
+```text
 https://api.grainfinance.co/v1
 ```
 
@@ -24,10 +24,10 @@ You can find your credentials in the [Grain Dashboard](https://console.grainfina
 
 ## Environments
 
-| Environment | Base URL                                                   |
-| :---------- | :--------------------------------------------------------- |
-| Sandbox     | `https://api.grainfinance.co/v1` (use Sandbox credentials) |
-| Live        | `https://api.grainfinance.co/v1` (use Live credentials)    |
+| Environment | Base URL |
+| :-- | :-- |
+| Sandbox | `https://api.grainfinance.co/v1` (use Sandbox credentials) |
+| Live | `https://api.grainfinance.co/v1` (use Live credentials) |
 
 Switch between environments by swapping your Client ID and Secret — the base URL is the same for both.
 
@@ -42,3 +42,7 @@ All responses are JSON. Errors follow a consistent structure:
 ```
 
 HTTP status codes follow standard conventions: `2xx` for success, `4xx` for client errors, `5xx` for server errors.
+
+## OpenAPI Specification:
+
+Download the full specification [here](https://grain-docs-assets.s3.us-east-1.amazonaws.com/openapi.yaml).
