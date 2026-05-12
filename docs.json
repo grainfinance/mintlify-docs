@@ -2,6 +2,9 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Grain Developer Portal",
+  "api": {
+  "openapi": "https://grain-docs-assets.s3.us-east-1.amazonaws.com/openapi.yaml"
+  },
   "colors": {
     "primary": "#3D82F7",
     "light": "#6AA0F9",
@@ -44,7 +47,6 @@
       },
       {
         "tab": "API",
-        "openapi": "https://grain-docs-assets.s3.us-east-1.amazonaws.com/openapi.yaml",
         "groups": [
           {
             "group": "Overview",
