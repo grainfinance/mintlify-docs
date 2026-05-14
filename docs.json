@@ -33,7 +33,7 @@
         "tab": "Concepts",
         "groups": [
           {
-            "group": "Overview",
+            "group": "Concepts",
             "pages": [
               "concepts/core-concepts",
               "concepts/quotes",
