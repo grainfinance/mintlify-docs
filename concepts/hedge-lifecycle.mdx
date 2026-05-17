@@ -1,6 +1,5 @@
 ---
 title: "Hedge Lifecycle"
-description: "Customers, hedge statuses, mark-to-market, and dual hedges"
 ---
 
 ## Customers
@@ -12,13 +11,9 @@ Partners can associate hedges with specific customers (end-users) by reporting c
 Grain's lifecycle differs from banking systems by explicitly separating execution, drawdown, and settlement, allowing more flexibility for platform-driven hedging. The API maps each stage to clear status values.
 
 1. **In Process** — hedge is being set up, quote accepted but not yet fully active
-
 2. **Active** — hedge awaits settlement or drawdown
-
 3. **Completed** — amounts exchanged successfully
-
 4. **Overdue** — past maturity without settlement
-
 5. **Cancelled** — hedge terminated
 
 ## Mark-to-Market (MTM)

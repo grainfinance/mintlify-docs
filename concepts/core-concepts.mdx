@@ -1,6 +1,5 @@
 ---
 title: "Core Concepts"
-description: "Core concepts behind Grain's pricing, hedging, settlement, funding, and payout infrastructure. Understanding these concepts is recommended before integrating the API."
 ---
 
 ## Exposure
@@ -26,12 +25,11 @@ Key components:
 
 A forward rate is not a prediction of where the market will be. It is calculated from two components:
 
-```
+```text
 Forward Rate = Spot Rate + Forward Points
 ```
 
 - **Spot rate** — the current market exchange rate
-
 - **Forward points** — an adjustment derived from the interest rate differential between the two currencies over the hedge period
 
 The forward points are determined by a forward curve, which reflects how interest rate differentials change across different maturities. A longer hedge period generally means larger forward points (positive or negative depending on the currency pair).
@@ -46,8 +44,7 @@ Grain's core hedging model allows partners to hedge their full reported exposure
 
 Grain offers two ways to exchange currencies:
 
-- **Spot** — an immediate currency conversion at the current market rate. Settlement typically occurs on the same day or within T+2. Use spots when you need to convert funds now with no future rate risk.
-
+- **Spot** — an immediate currency conversion at the current market rate. Settlement typically occurs on the same day or within T\+2. Use spots when you need to convert funds now with no future rate risk.
 - **Hedge (Forward)** — locks a rate for a future date, removing uncertainty about what the exchange rate will be at settlement. Use hedges when there is a time gap between commitment and payment.
 
 The choice depends on timing. If the payment is immediate, use a spot. If the payment is in the future and the business wants certainty on the rate, use a hedge.
@@ -67,13 +64,11 @@ The actual prices you trade on. Available for both spots and hedges. Quotes incl
 When a hedge is created, the market may move against the locked rate before settlement. Collateral and variation margin are mechanisms to manage this counterparty risk.
 
 - **Initial Collateral** — an upfront deposit required when the hedge is created, typically a percentage of the notional amount. It acts as a security buffer.
-
 - **Variation Margin** — additional collateral that may be called if the market moves significantly against the hedge position (mark-to-market loss exceeds a threshold).
 
 Grain offers two models:
 
 - **Collateralized** — the partner posts initial collateral and may be subject to variation margin calls. Standard in traditional FX.
-
 - **Non-collateralized** — no upfront deposit or margin calls required. Grain assumes the counterparty risk on behalf of the partner, enabling a frictionless integration with no capital lockup.
 
 How Grain manages risk: across both models, Grain uses proprietary AI models to optimize hedging execution — ensuring cost-effective risk management while providing partners with full-exposure coverage.

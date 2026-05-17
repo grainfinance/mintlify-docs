@@ -1,6 +1,5 @@
 ---
 title: "Quotes"
-description: "Real-time vs offline quotes, expiration, fixed side, and quote calculation"
 ---
 
 ## Real-Time vs Offline Quotes
@@ -29,19 +28,18 @@ Every quote includes a `validUntilTs` field — a timestamp indicating when the 
 
 Quote validity directly impacts pricing: a longer validity window means Grain carries more market risk while holding the price, which may result in a wider spread. Real-time quotes typically have short validity, while offline quotes may be valid for longer periods.
 
-| API Endpoint           | Rate Type | Executable | Markup | Use Case                 |
-| :--------------------- | :-------- | :--------- | :----- | :----------------------- |
-| /pricing/rate          | Spot      | No         | No     | Display / Analytics      |
-| /hedges/realtime/quote | Hedge     | Yes        | Yes    | Real-time execution      |
-| /hedges/offline/quote  | Hedge     | Yes        | Yes    | Bulk / offline execution |
-| /spots/quote           | Spot      | Yes        | Yes    | Same-day conversion      |
+| API Endpoint | Rate Type | Executable | Markup | Use Case |
+| :-- | :-- | :-- | :-- | :-- |
+| /pricing/rate | Spot | No | No | Display / Analytics |
+| /hedges/realtime/quote | Hedge | Yes | Yes | Real-time execution |
+| /hedges/offline/quote | Hedge | Yes | Yes | Bulk / offline execution |
+| /spots/quote | Spot | Yes | Yes | Same-day conversion |
 
 ## Fixed Side (Quote Direction)
 
 When requesting a real-time quote, you must specify which side of the currency pair is fixed — this is called the fixed side, or quote direction.
 
 - **From Amount** — "I have X; tell me how much Y I'll get." The source amount is fixed, Grain calculates the target.
-
 - **To Amount** — "I need Y; tell me how much X I must send." The target amount is fixed, Grain calculates the source.
 
 These two modes eliminate ambiguity in FX direction. The fixed side determines how the quote is priced and which amount appears in the response.
@@ -52,16 +50,15 @@ These two modes eliminate ambiguity in FX direction. The fixed side determines h
 
 In Grain, the quote is always expressed as:
 
-```
+```text
 fromCurrencyAmount = toCurrencyAmount × quote
 ```
 
-To calculate the From Amount, you should multiply the To Amount by the quote.
-To calculate the To Amount, you should divide the From Amount by the quote.
+To calculate the From Amount, you should multiply the To Amount by the quote. To calculate the To Amount, you should divide the From Amount by the quote.
 
 Example (GBP to USD, quote = 0.7891):
 
-```
+```text
 From Amount: 10,000 USD × 0.7891 = 7,891 GBP
 To Amount:   7,891 GBP / 0.7891 = 10,000 USD
 ```
