@@ -49,8 +49,11 @@
         "tab": "API",
         "groups": [
           {
-            "group": "Overview",
-            "pages": ["api-reference/introduction"]
+            "group": "Basics",
+            "pages": [
+              "api-reference/introduction",
+              "api-reference/authentication"
+            ]
           },
           {
             "group": "Hedges",

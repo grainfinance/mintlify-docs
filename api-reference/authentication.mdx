@@ -1,0 +1,12 @@
+---
+title: "Authentication"
+---
+
+All endpoints use **HTTP Basic Authentication**. Your Client ID is the username and your Secret is the password.
+
+```bash
+curl https://api.grainfinance.co/v1/... \
+  -u "{clientId}:{secret}"
+```
+
+You can find your credentials in the [Grain Dashboard](https://console.grainfinance.co/keys) under **Developer → API Keys**. Each environment (Sandbox and Live) has separate credentials.
