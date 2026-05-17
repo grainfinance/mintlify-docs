@@ -1,6 +1,5 @@
 ---
 title: "Settlements"
-description: "Full settlement vs offset settlement, settlement cycles, and early drawdown"
 ---
 
 ## Full Settlement vs Offset Settlement
@@ -13,7 +12,7 @@ Grain owns the flow of funds. At maturity, the full notional is exchanged — Gr
 
 Full settlement pairs naturally with payouts: lock a rate via a hedge, let settlement credit your wallet, then trigger a payout to your vendor. This creates an end-to-end flow from FX execution through to payment.
 
-Example: You hedge €100,000 at EUR/USD 1.10. At settlement, Grain debits $110,000 from your USD wallet and credits €100,000 to your EUR wallet. You can then pay your supplier directly from the EUR wallet.
+Example: You hedge €100,000 at EUR/USD 1.10. At settlement, Grain debits \$110,000 from your USD wallet and credits €100,000 to your EUR wallet. You can then pay your supplier directly from the EUR wallet.
 
 ### Offset Settlement
 
@@ -23,21 +22,19 @@ Example: Same hedge — €100,000 at EUR/USD 1.10. At settlement, spot is 1.12.
 
 ### Which to choose
 
-|                    | Full Settlement                                          | Offset Settlement                                                       |
-| :----------------- | :------------------------------------------------------- | :---------------------------------------------------------------------- |
-| **Grain Role**     | FX execution + currency delivery                         | FX risk management only                                                 |
-| **Wallet Funding** | Required before settlement                               | Minimal — only net difference                                           |
-| **Payment Flow**   | Grain → your wallet → payout to vendor                   | You pay vendors independently                                           |
-| **Best For**       | Partners who want Grain to handle the full payment chain | Partners who manage their own payment flows and want FX protection only |
+|  | Full Settlement | Offset Settlement |
+| :-- | :-- | :-- |
+| **Grain Role** | FX execution \+ currency delivery | FX risk management only |
+| **Wallet Funding** | Required before settlement | Minimal — only net difference |
+| **Payment Flow** | Grain → your wallet → payout to vendor | You pay vendors independently |
+| **Best For** | Partners who want Grain to handle the full payment chain | Partners who manage their own payment flows and want FX protection only |
 
 ## Settlement Cycles
 
 For offset settlement, Grain can perform bulk settlement on a set cadence agreed with the partner. Common cycles include:
 
 - **Weekly** — net offset positions are settled once per week
-
 - **Bi-weekly** — settlement every two weeks
-
 - **Monthly** — settlement once per calendar month
 
 The cycle is configured during onboarding and determines when Grain aggregates and settles all offset positions for the period. Partners should ensure their wallets are funded ahead of each settlement date.
@@ -49,9 +46,6 @@ Early drawdown allows settling a hedge before the maturity date.
 Characteristics:
 
 - Hedge must be active
-
 - P&L is realized earlier than planned maturity
-
 - API requires specifying drawdown amount and settlement instructions
-
 - Pricing reflects the early settlement date
