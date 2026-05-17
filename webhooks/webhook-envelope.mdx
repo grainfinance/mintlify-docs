@@ -1,19 +1,18 @@
 ---
 title: "Webhook Envelope"
-description: "The standard envelope structure wrapping every webhook notification"
 ---
 
 Every webhook notification is wrapped in a standard envelope. The `data` field contains the event-specific payload.
 
-| Field          | Type   | Description                                                       |
-| :------------- | :----- | :---------------------------------------------------------------- |
-| eventId        | string | Deterministic unique UUID. Use for idempotency and deduplication. |
-| type           | string | The event type (e.g., `hedge.completed`).                         |
-| environment    | string | `"Live"` or `"Sandbox"`.                                          |
-| createdAtTs    | number | Unix timestamp in milliseconds when the event was created.        |
-| version        | string | Payload schema version. Currently `"1.0"`.                        |
-| organizationId | string | UUID of the organization the event belongs to.                    |
-| data           | object | Event-specific payload. Structure varies by event type.           |
+| Field | Type | Description |
+| :-- | :-- | :-- |
+| eventId | string | Deterministic unique UUID. Use for idempotency and deduplication. |
+| type | string | The event type (e.g., `hedge.completed`). |
+| environment | string | `"Live"` or `"Sandbox"`. |
+| createdAtTs | number | Unix timestamp in milliseconds when the event was created. |
+| version | string | Payload schema version. Currently `"1.0"`. |
+| organizationId | string | UUID of the organization the event belongs to. |
+| data | object | Event-specific payload. Structure varies by event type. |
 
 **Example:**
 

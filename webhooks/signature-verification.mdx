@@ -1,6 +1,5 @@
 ---
 title: "Signature Verification"
-description: "How to verify that webhook requests originate from Grain"
 ---
 
 Grain signs all webhook payloads with an HMAC signature so you can verify they originated from Grain and haven't been tampered with.
@@ -9,26 +8,23 @@ Grain signs all webhook payloads with an HMAC signature so you can verify they o
 
 Each webhook request includes two security headers:
 
-| Header            | Description                                          |
-| :---------------- | :--------------------------------------------------- |
-| X-Grain-Signature | HMAC-SHA256 signature in format `v1={signature}`     |
+| Header | Description |
+| :-- | :-- |
+| X-Grain-Signature | HMAC-SHA256 signature in format `v1={signature}` |
 | X-Grain-Timestamp | Unix timestamp (seconds) when the request was signed |
 
 ## Verification Steps
 
 1. **Extract the timestamp and signature** from the request headers.
-
 2. **Check the timestamp** is within an acceptable window (recommended: 5 minutes). This protects against replay attacks.
-
 3. **Compute the expected signature** using your webhook secret.
-
 4. **Compare signatures** using a timing-safe comparison function.
 
 ## Computing the Signature
 
 The signature is computed over the string `{timestamp}.{raw_request_body}`:
 
-```
+```text
 signed_payload = "{timestamp}.{raw_json_body}"
 expected_signature = "v1=" + HMAC-SHA256(signed_payload, your_webhook_secret)
 ```
@@ -70,9 +66,6 @@ def verify_webhook_signature(
 ## Important Notes
 
 - **Always use the raw request body** — do not parse and re-serialize the JSON, as this may change the payload.
-
 - **Use timing-safe comparison** — standard string comparison is vulnerable to timing attacks.
-
 - **Validate the timestamp** — this protects against replay attacks where an attacker resends a captured request.
-
 - **Store your secret securely** — treat it like a password; never commit it to source control.

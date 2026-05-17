@@ -1,6 +1,5 @@
 ---
 title: "Overview & Setup"
-description: "Real-time event notifications for the hedge and wallet lifecycle"
 ---
 
 Grain sends webhook notifications to your server when key events occur during the hedge and wallet lifecycle. Instead of polling the API for status changes, your application receives real-time HTTP POST requests with event details — enabling you to automate settlement tracking, trigger internal workflows, and keep your systems in sync.
@@ -10,17 +9,12 @@ Grain sends webhook notifications to your server when key events occur during th
 Configure webhooks from **Dashboard → Developer → Webhooks**. Each environment (Sandbox and Live) has its own configuration.
 
 1. Navigate to **Developer → Webhooks** in the Grain Dashboard.
-
 2. Enter your **Webhooks URL** — the HTTPS endpoint where Grain will send event notifications.
-
 3. Copy your **Webhook Secret** — displayed in the dashboard as "Verification Token" (prefixed with `whl_live_` or `whl_sandbox_`). This secret is used to compute HMAC signatures for verifying webhook authenticity — see [Signature Verification](/webhooks/signature-verification).
-
 4. Toggle **Webhooks Active** to start receiving events.
 
 ### Requirements
 
 - Your endpoint must accept HTTP POST requests with a JSON body.
-
 - Respond with a 2xx status code within 5 seconds to acknowledge receipt. Any other response (or a timeout) is treated as a delivery failure.
-
 - Failed deliveries are retried using an exponential backoff schedule. Use the `eventId` field to deduplicate redelivered events.
