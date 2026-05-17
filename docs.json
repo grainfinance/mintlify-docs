@@ -15,34 +15,24 @@
     "tabs": [
       {
         "tab": "Get Started",
-        "groups": [
-          {
-            "group": "Get Started",
-            "pages": [
-              "get-started/index",
-              "get-started/setup-your-configuration",
-              "get-started/retrieve-api-keys",
-              "get-started/create-your-first-customer",
-              "get-started/create-your-first-hedge",
-              "get-started/hedge-settlement"
-            ]
-          }
+        "pages": [
+          "get-started/index",
+          "get-started/setup-your-configuration",
+          "get-started/retrieve-api-keys",
+          "get-started/create-your-first-customer",
+          "get-started/create-your-first-hedge",
+          "get-started/hedge-settlement"
         ]
       },
       {
         "tab": "Concepts",
-        "groups": [
-          {
-            "group": "Concepts",
-            "pages": [
-              "concepts/core-concepts",
-              "concepts/quotes",
-              "concepts/hedge-lifecycle",
-              "concepts/settlements",
-              "concepts/funding-wallets",
-              "concepts/payouts"
-            ]
-          }
+        "pages": [
+          "concepts/core-concepts",
+          "concepts/quotes",
+          "concepts/hedge-lifecycle",
+          "concepts/settlements",
+          "concepts/funding-wallets",
+          "concepts/payouts"
         ]
       },
       {
@@ -126,17 +116,12 @@
       },
       {
         "tab": "Webhooks",
-        "groups": [
-          {
-            "group": "Webhooks",
-            "pages": [
-              "webhooks/index",
-              "webhooks/signature-verification",
-              "webhooks/webhook-envelope",
-              "webhooks/events",
-              "webhooks/best-practices"
-            ]
-          }
+        "pages": [
+          "webhooks/index",
+          "webhooks/signature-verification",
+          "webhooks/webhook-envelope",
+          "webhooks/events",
+          "webhooks/best-practices"
         ]
       }
     ]
