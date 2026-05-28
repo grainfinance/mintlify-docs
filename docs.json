@@ -58,7 +58,7 @@
             "group": "Hedges",
             "pages": [
               {
-                "group": "Real Time",
+                "group": "Realtime Hedge",
                 "pages": [
                   "api-reference/hedges/get-quote",
                   "api-reference/hedges/accept-quote"
@@ -66,23 +66,24 @@
                 "expanded": true
               },
               {
-                "group": "Offline",
+                "group": "Offline Hedge",
                 "pages": [
                   "api-reference/hedges/get-offline-rates",
                   "api-reference/hedges/accept-offline-quote"
                 ],
                 "expanded": true
               },
-              "api-reference/hedges/list-hedges",
-              "api-reference/hedges/get-hedge",
-              "api-reference/hedges/cancel-hedge",
               {
                 "group": "Early Settlement",
+                "expanded": true,
                 "pages": [
                   "api-reference/hedges/early-settlement-quote",
                   "api-reference/hedges/early-settlement-accept"
                 ]
-              }
+              },
+              "api-reference/hedges/list-hedges",
+              "api-reference/hedges/get-hedge",
+              "api-reference/hedges/cancel-hedge"
             ]
           },
           {
