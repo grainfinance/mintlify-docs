@@ -76,8 +76,13 @@
               "api-reference/hedges/list-hedges",
               "api-reference/hedges/get-hedge",
               "api-reference/hedges/cancel-hedge",
-              "api-reference/hedges/early-settlement-quote",
-              "api-reference/hedges/early-settlement-accept"
+              {
+                "group": "Early Settlement",
+                "pages": [
+                  "api-reference/hedges/early-settlement-quote",
+                  "api-reference/hedges/early-settlement-accept"
+                ]
+              }
             ]
           },
           {
