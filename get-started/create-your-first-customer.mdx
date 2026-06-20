@@ -2,7 +2,7 @@
 title: "Create Your First Customer"
 ---
 
-Before you create a hedge, you need to create its customer. Create your first customer using the [create customer](/api-reference/customers/create-customer) API:
+Every hedge is tied to a customer, which is used for mapping - attributing hedges to your end customers and reconciling exposure per customer. If you don't need per-customer mapping, you can use a single customer for all your hedges. Create your first customer using the [create customer](/api-reference/customers/create-customer) API:
 
 ```bash
 curl -X POST https://api.grainfinance.co/v1/customers \
