@@ -35,32 +35,40 @@ Quote validity directly impacts pricing: a longer validity window means Grain ca
 | /hedges/offline/quote | Hedge | Yes | Yes | Bulk / offline execution |
 | /spots/quote | Spot | Yes | Yes | Same-day conversion |
 
-## Fixed Side (Quote Direction)
+{/* Replaces the existing "Fixed Side (Quote Direction)" and "Quote Calculation" sections on /concepts/quotes */}
 
-When requesting a real-time quote, you must specify which side of the currency pair is fixed — this is called the fixed side, or quote direction.
+## Fixed Side
 
-- **From Amount** — "I have X; tell me how much Y I'll get." The source amount is fixed, Grain calculates the target.
-- **To Amount** — "I need Y; tell me how much X I must send." The target amount is fixed, Grain calculates the source.
+When you request a quote you pin exactly one amount — the fixed side — and Grain derives the other from the rate. You can fix either side, or neither (deferring the amount to the Accept call).
 
-These two modes eliminate ambiguity in FX direction. The fixed side determines how the quote is priced and which amount appears in the response.
+- To Amount fixed — you send `toCurrencyAmount` (e.g. the listing or invoice amount you need to deliver). Grain derives `fromCurrencyAmount`.
+- From Amount fixed — you send `fromCurrencyAmount` (the amount your customer pays). Grain derives `toCurrencyAmount`.
 
-**Common mistakes:** reversing the currency pair, mixing direction between From and To, and expecting symmetry between the two modes (not guaranteed due to spread and rounding).
+The response echoes your choice in the `fixedSide` field, so you always know which amount was specified and which was calculated.
 
-## Quote Calculation
+## Quote Direction
 
-In Grain, the quote is always expressed as:
+The quote is always expressed as fromCurrency per 1 toCurrency, regardless of which side you fix. Fixing either side gives the same rate — only multiply-vs-divide changes:
 
 ```text
 fromCurrencyAmount = toCurrencyAmount × quote
+toCurrencyAmount   = fromCurrencyAmount ÷ quote
 ```
 
-To calculate the From Amount, you should multiply the To Amount by the quote. To calculate the To Amount, you should divide the From Amount by the quote.
+Note: this may differ from how the pair is quoted in the market. Example: a GBP→USD hedge returns ≈ 0.79 (GBP per 1 USD), not the market's GBP/USD ≈ 1.27 (USD per 1 GBP).
 
-Example (GBP to USD, quote = 0.7891):
+### Example
+
+MXN → USD, quote = 20.6165.
+
+Fix To — `toCurrencyAmount` = 1,560 USD:
 
 ```text
-From Amount: 10,000 USD × 0.7891 = 7,891 GBP
-To Amount:   7,891 GBP / 0.7891 = 10,000 USD
+fromCurrencyAmount = 1,560 × 20.6165 = 32,161.8 MXN
 ```
 
-The customer sends 7,891 GBP (`fromCurrencyAmount`) and receives 10,000 USD (`toCurrencyAmount`).
+Fix From — `fromCurrencyAmount` = 32,161.8 MXN:
+
+```text
+toCurrencyAmount = 32,161.8 ÷ 20.6165 = 1,560 USD
+```
