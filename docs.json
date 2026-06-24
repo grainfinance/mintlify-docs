@@ -126,6 +126,13 @@
               "api-reference/wallets/get-wallet",
               "api-reference/wallets/withdraw"
             ]
+          },
+          {
+            "group": "Payouts",
+            "pages": [
+              "api-reference/payouts/initiate-payout",
+              "api-reference/payouts/submit-payout"
+            ]
           }
         ]
       },
