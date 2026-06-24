@@ -107,16 +107,19 @@
             ]
           },
           {
-            "group": "Pricing",
-            "pages": ["api-reference/pricing/get-exchange-rate"]
-          },
-          {
             "group": "Spots",
             "pages": [
               "api-reference/spots/get-quote",
               "api-reference/spots/accept-quote",
               "api-reference/spots/list-spots",
               "api-reference/spots/get-spot"
+            ]
+          },
+          {
+            "group": "Payouts",
+            "pages": [
+              "api-reference/payouts/initiate-payout",
+              "api-reference/payouts/submit-payout"
             ]
           },
           {
@@ -128,10 +131,9 @@
             ]
           },
           {
-            "group": "Payouts",
+            "group": "Pricing",
             "pages": [
-              "api-reference/payouts/initiate-payout",
-              "api-reference/payouts/submit-payout"
+              "api-reference/pricing/get-exchange-rate"
             ]
           }
         ]
