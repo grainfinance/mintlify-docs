@@ -25,6 +25,7 @@
       {
         "tab": "Get Started",
         "pages": [
+          "index",
           "get-started/index",
           "get-started/setup-your-configuration",
           "get-started/retrieve-api-keys",
