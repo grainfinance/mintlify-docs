@@ -126,7 +126,9 @@
             "group": "Payouts",
             "pages": [
               "api-reference/payouts/review-payout",
-              "api-reference/payouts/submit-payout"
+              "api-reference/payouts/submit-payout",
+              "api-reference/payouts/list-payouts",
+              "api-reference/payouts/get-payout"
             ]
           },
           {
