@@ -114,12 +114,12 @@
             ]
           },
           {
-            "group": "Spots",
+            "group": "Conversions",
             "pages": [
-              "api-reference/spots/get-quote",
-              "api-reference/spots/accept-quote",
-              "api-reference/spots/list-spots",
-              "api-reference/spots/get-spot"
+              "api-reference/conversions/get-quote",
+              "api-reference/conversions/accept-quote",
+              "api-reference/conversions/list-conversions",
+              "api-reference/conversions/get-conversion"
             ]
           },
           {
