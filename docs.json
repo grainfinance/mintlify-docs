@@ -124,7 +124,7 @@
           },
           {
             "group": "Spots",
-            "tag": "Deprecated",
+            "tag": "Removed Jul 15",
             "pages": [
               "api-reference/spots/get-quote",
               "api-reference/spots/accept-quote",
