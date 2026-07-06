@@ -123,6 +123,16 @@
             ]
           },
           {
+            "group": "Spots",
+            "tag": "Deprecated",
+            "pages": [
+              "api-reference/spots/get-quote",
+              "api-reference/spots/accept-quote",
+              "api-reference/spots/list-spots",
+              "api-reference/spots/get-spot"
+            ]
+          },
+          {
             "group": "Payouts",
             "pages": [
               "api-reference/payouts/review-payout",
