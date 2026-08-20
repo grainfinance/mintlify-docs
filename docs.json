@@ -156,11 +156,7 @@
               "webhooks/events/hedge-initial-collateral-received",
               "webhooks/events/hedge-initial-collateral-overdue",
               "webhooks/events/hedge-upcoming-settlement",
-              "webhooks/events/wallet-deposit-received",
-              "webhooks/events/payout-created",
-              "webhooks/events/payout-sent",
-              "webhooks/events/payout-paid",
-              "webhooks/events/payout-rejected"
+              "webhooks/events/wallet-deposit-received"
             ]
           },
           "webhooks/best-practices"
