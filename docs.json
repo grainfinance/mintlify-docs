@@ -74,14 +74,6 @@
                 ],
                 "expanded": true
               },
-              {
-                "group": "Early Settlement",
-                "expanded": true,
-                "pages": [
-                  "api-reference/hedges/early-settlement-quote",
-                  "api-reference/hedges/early-settlement-accept"
-                ]
-              },
               "api-reference/hedges/list-hedges",
               "api-reference/hedges/get-hedge",
               "api-reference/hedges/cancel-hedge"
