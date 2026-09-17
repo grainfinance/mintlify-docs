@@ -126,6 +126,14 @@
             ]
           },
           {
+            "group": "Vendors",
+            "pages": [
+              "api-reference/vendors/create-vendor",
+              "api-reference/vendors/list-vendors",
+              "api-reference/vendors/get-vendor"
+            ]
+          },
+          {
             "group": "Wallets",
             "pages": [
               "api-reference/wallets/list-wallets",
