@@ -74,6 +74,15 @@
                 ],
                 "expanded": true
               },
+              {
+                "group": "Drawdown",
+                "pages": [
+                  "api-reference/hedges/drawdown-quote",
+                  "api-reference/hedges/drawdown-accept",
+                  "api-reference/hedges/list-drawdowns",
+                  "api-reference/hedges/get-drawdown"
+                ]
+              },
               "api-reference/hedges/list-hedges",
               "api-reference/hedges/get-hedge",
               "api-reference/hedges/cancel-hedge"
@@ -156,6 +165,8 @@
               "webhooks/events/hedge-initial-collateral-received",
               "webhooks/events/hedge-initial-collateral-overdue",
               "webhooks/events/hedge-upcoming-settlement",
+              "webhooks/events/drawdown-created",
+              "webhooks/events/drawdown-completed",
               "webhooks/events/wallet-deposit-received",
               "webhooks/events/payout-created",
               "webhooks/events/payout-sent",
