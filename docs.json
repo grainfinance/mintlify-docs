@@ -74,18 +74,18 @@
                 ],
                 "expanded": true
               },
-              {
-                "group": "Drawdown",
-                "pages": [
-                  "api-reference/hedges/drawdown-quote",
-                  "api-reference/hedges/drawdown-accept",
-                  "api-reference/hedges/list-drawdowns",
-                  "api-reference/hedges/get-drawdown"
-                ]
-              },
               "api-reference/hedges/list-hedges",
               "api-reference/hedges/get-hedge",
               "api-reference/hedges/cancel-hedge"
+            ]
+          },
+          {
+            "group": "Drawdown",
+            "pages": [
+              "api-reference/hedges/drawdown-quote",
+              "api-reference/hedges/drawdown-accept",
+              "api-reference/hedges/list-drawdowns",
+              "api-reference/hedges/get-drawdown"
             ]
           },
           {
