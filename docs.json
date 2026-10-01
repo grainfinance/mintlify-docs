@@ -59,7 +59,7 @@
             "group": "Hedges",
             "pages": [
               {
-                "group": "Realtime",
+                "group": "Accept Realtime",
                 "pages": [
                   "api-reference/hedges/get-quote",
                   "api-reference/hedges/accept-quote"
@@ -67,7 +67,7 @@
                 "expanded": true
               },
               {
-                "group": "Offline",
+                "group": "Accept Offline",
                 "pages": [
                   "api-reference/hedges/get-offline-rates",
                   "api-reference/hedges/accept-offline-quote"
@@ -78,7 +78,7 @@
               "api-reference/hedges/get-hedge",
               "api-reference/hedges/cancel-hedge",
               {
-                "group": "Drawdown",
+                "group": "Drawdown Hedge",
                 "pages": [
                   "api-reference/hedges/drawdown-quote",
                   "api-reference/hedges/drawdown-accept",
