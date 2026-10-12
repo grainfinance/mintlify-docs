@@ -28,3 +28,7 @@ Transfer types:
 3. **Payouts** — funds sent from a Grain wallet to an external beneficiary (vendor, supplier, customer)
 4. **Withdrawals** — funds moved out of a Grain wallet back to the organization's own bank account
 5. **Currency Exchange (Spot)** — immediate conversion between two currency wallets, debiting one and crediting the other
+
+A drawdown moves funds like any other settlement. On its settlement date, the drawdown amount is debited from the From Currency wallet and the proceeds credited to the To Currency wallet, recorded as Settlement Funding entries. Collateral released by the drawdown reduces the collateral held balance.
+
+The wallet should be funded before the drawdown is accepted.

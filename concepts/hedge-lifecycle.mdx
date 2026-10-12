@@ -16,6 +16,8 @@ Grain's lifecycle differs from banking systems by explicitly separating executio
 4. **Overdue** — past maturity without settlement
 5. **Cancelled** — hedge terminated
 
+A flexible hedge also reports its opening terms alongside its current ones. The original\* fields record the amounts, rate and due date it was booked at and never change, while the live fields show what is left to draw.
+
 ## Mark-to-Market (MTM)
 
 Mark-to-Market is the current unrealized profit or loss on an open hedge, calculated by comparing the locked rate to the current market rate. Partners can see MTM values on active hedges via the API.

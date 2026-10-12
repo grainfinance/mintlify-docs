@@ -40,13 +40,28 @@ For offset settlement, Grain can perform bulk settlement on a set cadence agreed
 
 The cycle is configured during onboarding and determines when Grain aggregates and settles all offset positions for the period. Partners should ensure their wallets are funded ahead of each settlement date.
 
-## Early Settlement
+## **Drawdowns**
 
-Early settlement allows settling a hedge before the maturity date.
+A drawdown settles part of a hedge before maturity, leaving the rest of the hedge in place. On a flexible hedge, every drawdown settles at the rate the hedge was booked at.
 
-Characteristics:
+A drawdown can be for any amount up to the hedge’s full remaining balance, and a hedge can be drawn down as many times as needed. Each drawdown is accepted immediately and settles on the next business day.
 
-- Hedge must be active
-- P&L is realized earlier than planned maturity
-- API requires specifying drawdown amount and settlement instructions
-- Pricing reflects the early settlement date
+Drawing a hedge down to zero is optional. Whatever remains at maturity settles on the hedge’s original due date, as it would on any hedge.
+
+A €100,000 budget hedged at 1.10, drawn down twice:
+
+|  | **Amount** | **Rate** | **Remaining** |
+| :-- | :-- | :-- | :-- |
+| At creation | — | 1.10 | €100,000 / \$110,000 |
+| Drawdown 1 | €40,000 / \$44,000 | 1.10 | €60,000 / \$66,000 |
+| Drawdown 2 | €35,000 / \$38,500 | 1.10 | €25,000 / \$27,500 |
+| Settlement at maturity | €25,000 / \$27,500 | 1.10 | €0 / \$0 |
+
+### **Drawdown Statuses**
+
+A drawdown carries its own status, separate from the hedge’s:
+
+- **In Process** — accepted, settlement not yet complete
+- **Completed** — settled successfully
+
+The hedge stays Active while drawdowns are taken against it, until its full amount is consumed or it reaches maturity.

@@ -34,6 +34,24 @@ Forward Rate = Spot Rate + Forward Points
 
 The forward points are determined by a forward curve, which reflects how interest rate differentials change across different maturities. A longer hedge period generally means larger forward points (positive or negative depending on the currency pair).
 
+## **Flexible Hedges**
+
+The hedges described so far lock a rate for a single exchange at maturity. Drawing part of one down earlier is a separate event with its own pricing, calculated from the forward points prevailing at the time it is taken.
+
+A **flexible hedge** locks one rate at creation and keeps it for every drawdown against that hedge. You can draw down as much as you like, as many times as you like, up to the hedge’s full amount, and every drawdown settles at the rate the hedge was booked at, however late in the hedge’s life you take it.
+
+This gives certainty across the whole life of the hedge rather than at a single point in it. You know what every payment out of that hedge will cost, from the day you book it.
+
+|  | **Standard hedge** | **Flexible hedge** |
+| :-- | :-- | :-- |
+| Rate at creation | Locked | Locked |
+| Rate on a drawdown before maturity | Calculated at the time of the drawdown | The hedge’s original rate, every time |
+| Rate known in advance for | Settlement at maturity | Settlement and every drawdown |
+
+A flexible hedge also reports its opening terms alongside its current ones. The `original*` fields record the amounts, rate and due date it was booked at and never change, while the live fields show what is left to draw.
+
+Flexible hedging is enabled per partner.
+
 ## Full Exposure Hedging
 
 With traditional FX providers, partners must estimate their own hedging needs — accounting for cancellations, net-outs, and other variables — and only hedge what they're confident will materialize. If they get it wrong, they're either exposed or paying for unnecessary hedges.
@@ -72,3 +90,5 @@ Grain offers two models:
 - **Non-collateralized** — no upfront deposit or margin calls required. Grain assumes the counterparty risk on behalf of the partner, enabling a frictionless integration with no capital lockup.
 
 How Grain manages risk: across both models, Grain uses proprietary AI models to optimize hedging execution — ensuring cost-effective risk management while providing partners with full-exposure coverage.
+
+Initial collateral is posted once at creation against the full amount. Each drawdown releases a proportional share of the collateral still held and applies it toward funding that drawdown, so collateral falls in step with the amount left outstanding.

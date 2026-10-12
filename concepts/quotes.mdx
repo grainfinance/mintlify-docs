@@ -37,6 +37,14 @@ Quote validity directly impacts pricing: a longer validity window means Grain ca
 
 {/* Replaces the existing "Fixed Side (Quote Direction)" and "Quote Calculation" sections on /concepts/quotes */}
 
+## **Flexible Hedge Quotes**
+
+Request a flexible hedge by setting contractType to flexible on the hedge quote. Omit it for a standard hedge.
+
+A drawdown against a flexible hedge is always quoted at the hedge’s own rate: the quote returns the rate the hedge was booked at, every time, however late in the hedge’s life you ask for it.
+
+Drawdown proposals follow the same quote-then-accept pattern as hedge creation and expire one hour after they are returned.
+
 ## Fixed Side
 
 When you request a quote you pin exactly one amount — the fixed side — and Grain derives the other from the rate. You can fix either side, or neither (deferring the amount to the Accept call).
